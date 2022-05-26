@@ -1,6 +1,8 @@
 ;;;; Groundhog Operating System
 (local gos {:conf {:log-level :spam}
-            :dep {:socket (require :socket)}
+            :dep {:fennel (require :fennel)
+                  :socket (require :socket)}
+            :users {}
             :util {}})
 
 (set gos.last-log-print 0)
@@ -25,6 +27,41 @@
             (. gos.log-levels level))
     (print-msg)))
 
+(fn gos.util.find-element [seq query]
+  (let [matched []]
+    (each [_ element (pairs seq)]
+      (when (= element query)
+        (table.insert matched element)))
+    (if (> (length matched) 0) true nil)))
+
+(fn gos.util.load [path ?fallback]
+  (local file (io.open (.. path ".fnl") :r))
+  (if file
+      (gos.dep.fennel.eval (file:read "*all"))
+      (if ?fallback
+          (do
+            (gos.util.save ?fallback path)
+            (gos.util.load path))
+          (gos.log
+           :warning
+           (.. "No file at " path " and no fallback data structure given. "
+               "Failed to load.")))))
+
+(fn gos.util.save [data path]
+  (local file (io.open (.. path ".fnl") :w))
+  (file:write (gos.dep.fennel.view data))
+  (file:close))
+
+(fn gos.util.make-id [?existing]
+  (fn gen-id [x]
+    (let [r (- (math.random 16) 1)
+          p (or (and (= x :x) (+ r 1)) (+ (% r 4) 9))]
+      (: :0123456789abcdef :sub p p)))
+  (let [gen (: :xxxxxxxx :gsub "[xy]" gen-id)]
+    (print "generated" gen)
+    (if (gos.util.find-element (or ?existing []) gen)
+        (gos.util.make-id ?existing)
+        gen)))
 
 (fn gos.util.make-string-appender [?sep]
   "Return a function that holds a string and accepts one atctional argument (string or list of strings). If provided, the argument is appended to the held string, with SEP appended (to each one, if its a list of strings.)"
@@ -74,7 +111,10 @@
 (lambda gos.util.render-time [time]
   (os.date "%Y%m%d:%H%M%S" time))
 
-(set gos.timer {:count 0 :rate 0.2 :events []})
+(set gos.timer {:count 0 :rate 1 :events []})
+(set gos.client {:name :Anonymouse :commands {}})
+(set gos.server {:port 4242 :timeout 0.001 :clients []})
+
 
 (fn gos.timer.run [timer]
   (timer:tick)
@@ -92,8 +132,6 @@
     (set timer.events [])
     (each [_ event (pairs current-events)] (event))
     (gos.log :debug (.. "Finished processing tick #" timer.count))))
-
-(set gos.client {:name :Anonymouse :commands {}})
 
 (fn gos.client.parser [client input]
   (let [(command line) (input:match "([^ ]+) ?(.*)")]
@@ -121,6 +159,20 @@
         (icollect [command func (pairs client.commands)]
           command)
         true))))
+(fn gos.client.commands.login [client input]
+  (local users (gos.users.read))
+  (let [(name pass) (input:match "([^ ]+) ?(.*)")]
+    (if (. users )
+        (if (= (. (. users name) :password) pass)
+            (client:message "Correct, but login doesn't work yet.")
+            (client:message "Invalid password"))
+        (client:message "Invalid user-name."))))
+(fn gos.client.commands.quit [client input]
+  (client:message
+   (.. "Goodbye!"))
+  (gos.timer:schedule
+   (partial client.server.disconnect-client
+            client.server client)))
 (fn gos.client.commands.who [client input]
   (client:message
    (.. "There are " (length client.server.clients)
@@ -130,7 +182,6 @@
    (.. "Your name is " (or client.name :unknown) ".")))
                  
 
-(set gos.server {:port 4242 :timeout 0.001 :clients []})
 
 (fn gos.server.accept-connection [server connection]
   (gos.log :debug "Accepting a new connection.")
@@ -142,6 +193,7 @@
     (server:send-new-client-message client)))
 (fn gos.server.disconnect-client [server client]
   (gos.log :debug (.. "Disconnecting client " (or client.name :unknown)))
+  (client.connection:close)
   (each [key value (pairs server.clients)]
     (when (= value client)
       (table.remove server.clients key))))
@@ -171,4 +223,34 @@
     (gos.timer:schedule
      (partial server.tick server true))))
 
+(fn gos.users.read []
+  (gos.util.load :users {}))
+
+(fn gos.users.write [users]
+  (gos.util.save users :users))
+
+(fn gos.users.save-user [user]
+  (local users (gos.users.read))
+  (tset users user.id user)
+  (gos.users.write users))
+
+(fn gos.users.make-user [id]
+  (local pass (gos.util.make-id))
+  (gos.log :info (.. "Making new user " id " with password" pass))
+  {: id
+   :password pass
+   :history [{:event "Created" :time (os.time)}]})
+
+(fn gos.users.find-user [id]
+  (local users (gos.users.read))
+  (. users id))
+
+(fn gos.start []
+  (gos.server:start))
+
+(fn gos.run []
+  (gos.timer:run))
+
+(fn gos.go []
+  (gos.start) (gos.run))
 gos
