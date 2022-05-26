@@ -1,8 +1,8 @@
 ;;;; Groundhog Operating System
-(local gos {:conf {:log-level :spam}
+(local gos {:conf {:log-level :info}
             :dep {:fennel (require :fennel)
                   :socket (require :socket)}
-            :users {}
+            :users {:commands {}}
             :util {}})
 
 (set gos.last-log-print 0)
@@ -111,7 +111,7 @@
 (lambda gos.util.render-time [time]
   (os.date "%Y%m%d:%H%M%S" time))
 
-(set gos.timer {:count 0 :rate 1 :events []})
+(set gos.timer {:count 0 :rate 0.2 :events []})
 (set gos.client {:name :Anonymouse :commands {}})
 (set gos.server {:port 4242 :timeout 0.001 :clients []})
 
@@ -144,6 +144,14 @@
       (client:message
        (.. "Invalid command. Input `commands` and press ENTER to "
            "see your available commands.")))))
+(fn gos.client.login [client user]
+  (client:message (.. "Logging you in as user " user.id))
+  (set client.user user)
+  (set client.name user.id)
+  (each [relation relations (pairs user.relationships)]
+    (each [_ relationship (pairs relations)]
+      ((. (. gos relation) (.. :setup- relationship)) client)))
+  (tset client.commands :login nil))
 (fn gos.client.message [client message]
   (gos.timer:schedule
    (fn [] (client.connection:send (.. message "\n")))))
@@ -160,11 +168,11 @@
           command)
         true))))
 (fn gos.client.commands.login [client input]
-  (local users (gos.users.read))
-  (let [(name pass) (input:match "([^ ]+) ?(.*)")]
-    (if (. users )
-        (if (= (. (. users name) :password) pass)
-            (client:message "Correct, but login doesn't work yet.")
+  (let [(name pass) (input:match "([^ ]+) ?(.*)")
+        user (gos.users.find-user name)]
+    (if user
+        (if (= user.password pass)
+            (gos.client.login client user)
             (client:message "Invalid password"))
         (client:message "Invalid user-name."))))
 (fn gos.client.commands.quit [client input]
@@ -229,6 +237,14 @@
 (fn gos.users.write [users]
   (gos.util.save users :users))
 
+(fn gos.users.find-user [id]
+  (local users (gos.users.read))
+  (local matches [])
+  (each [uid user (pairs users)]
+    (when (= uid id)
+      (table.insert matches user)))
+  (. matches 1))
+
 (fn gos.users.save-user [user]
   (local users (gos.users.read))
   (tset users user.id user)
@@ -239,11 +255,31 @@
   (gos.log :info (.. "Making new user " id " with password" pass))
   {: id
    :password pass
+   :relationships {}
    :history [{:event "Created" :time (os.time)}]})
+
+(fn gos.users.modify-user-relationship [id other relation]
+  (local user (gos.users.find-user id))
+  (when (not (. user.relationships other))
+    (tset user.relationships other []))
+  (table.insert (. user.relationships other) relation)
+  (gos.users.save-user user))
 
 (fn gos.users.find-user [id]
   (local users (gos.users.read))
   (. users id))
+
+(fn gos.users.setup-admin [client]
+  (tset client.commands :register-user gos.users.commands.register-user))
+
+(fn gos.users.commands.register-user [client input]
+  (if (gos.users.find-user input)
+      (client:message "Failed to register new user; user exists with that id.")
+      (let [new-user (gos.users.make-user input)]
+        (gos.users.save-user new-user)
+        (client:message
+         (.. "Saved new user; their password is " new-user.password)))))
+        
 
 (fn gos.start []
   (gos.server:start))
