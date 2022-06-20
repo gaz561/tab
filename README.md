@@ -1,6 +1,7 @@
 # Groundhog Operating System
 
-This code is written for use by the Groundhog Autonomous Zone.
+
+**WARNING** This code exists for use by the Groundhog Autonomous Zone. It contains information on herbal treatments that can be *dangerous* or ***fatal***. Do not act on any information found in this repository without understanding that risk.
 
 ## User Guide
 
@@ -27,3 +28,5 @@ To do anything with GOS, you need to `require` it: `(local gos (require :gos))`
 ### Register an account
 
 `(gos.users.save-user (gos.users.make-user <ID>))`, replace `<ID>` with their desired user-ID.
+
+Or from the MUD, as a user with the admin relationship to users: `register-user <ID>`
