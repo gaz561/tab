@@ -1,5 +1,4 @@
-{:id :lotus-flower-blanket
- :created-by "Hooked by Robin"
+{:created-by "Hooked by Robin"
  :status [:untranscribed]
  :source "https://www.hookedbyrobin.com/blog/2018/02/lotus-flower-blanket-free-crochet.html"
  :product :blanket
