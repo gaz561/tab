@@ -1,9 +1,10 @@
 # Groundhog Operating System
 
-
 **WARNING** This code exists for use by the Groundhog Autonomous Zone. It contains information on herbal treatments that can be *dangerous* or ***fatal***. Do not act on any information found in this repository without understanding that risk.
 
-## User Guide
+*Another, less important warning* This code is written by, and for, folk who aren't professional computer users. This affects things in many ways; one way is that the best (and perhaps only) way to understand what is here is by talking to the actual people who've been involved in making it. So if something is unclear, or you don't know how to do something, ask someone who might! That said, an attempt will be made below to explain how to do some common tasks:
+
+## Using the System
 
 ### First Steps
 
@@ -13,20 +14,13 @@ Connect by asking an administrator for the current public address of the server,
 
 Ask an administrator!
 
-## Admin Guide
+## Running the System
 
-Administration is assumed to happen in the Fennel REPL: go to the directory with `gos.fnl` and type `fennel`
+```lisp
+(local mud (require :mud-server))
+(mud:start) (mud.timer:run)
+```
 
-### First Steps
+## Building the System
 
-To do anything with GOS, you need to `require` it: `(local gos (require :gos))`
-
-### Starting the server
-
-`(gos.go)` (check the code to see how it works)
-
-### Register an account
-
-`(gos.users.save-user (gos.users.make-user <ID>))`, replace `<ID>` with their desired user-ID.
-
-Or from the MUD, as a user with the admin relationship to users: `register-user <ID>`
+There's no documentation for how to build the system yet.

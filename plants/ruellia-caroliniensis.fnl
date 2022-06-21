@@ -12,8 +12,8 @@
                        :shape :ovate
                        :placement :crowded}
               :flowers {:color [:blue :purple :lavender]
-                        :flower-shape :trumpet
-                        :flower-petals [4 5]
+                        :shape :trumpet
+                        :petal-count [4 5]
                         :petal-shape :lobe
                         :corolla :slender
                         :bearing :hooked-projection
