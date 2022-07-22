@@ -1,3 +1,8 @@
+(local herbalism
+       {:data {}
+        :roles {:admin {:commands [:add-herb :set-herb-key]}
+                :user {:commands [:find-herb :list-herbs-for-symptom]}}})
+
 (fn gos.herbs.setup-admin [client]
   (each [cmd func (pairs gos.herbs.commands)]
     (tset client.commands cmd func)))
@@ -13,7 +18,7 @@
     (gos.data.set-entry-key :herbs id key value))
   (client:message "Might've worked who knows"))
 
-(fn gos.herbs.commands.find-text [client id]
+(fn gos.herbs.commands.find-herb [client id]
   (local ref (gos.data.find-entry :herbs id))
   (if ref
       (client:message (.. ref.botanical-name))
