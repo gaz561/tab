@@ -8,18 +8,39 @@
         (table.insert matched element)))
     (if (> (length matched) 0) true nil)))
 
-(fn util.load [path ?fallback]
+(lambda util.scan-directory [path ?recurse ?type]
+  (local matches {})
+  (local A (util.make-string-appender))
+  (A ["find \"" path "\""])
+  (when (not ?recurse) (A " -maxdepth 1"))
+  (when ?type (A [" -type " ?type]))
+  (let [results (io.popen (A))]
+    (each [result _ (results:lines)]
+      (let [line (string.sub result (+ 2 (length path)))]
+        (when (> (length line) 0)
+          (table.insert matches line)))))
+  matches)
+
+(fn util.load-file [path ?fallback]
   (local file (io.open (.. path ".fnl") :r))
   (if file
       (fennel.eval (file:read "*all"))
       (if ?fallback
           (do
-            (util.save ?fallback path)
-            (util.load path)))))
-(fn util.save [data path]
+            (util.save-file ?fallback path)
+            (util.load-file path)))))
+(fn util.save-file [data path]
   (local file (io.open (.. path ".fnl") :w))
   (file:write (fennel.view data))
   (file:close))
+
+(fn util.load-folder [path]
+  (local files-data {})
+  (each [_ file-path (pairs (util.scan-directory path nil :f))]
+    (tset files-data
+          (: file-path :match "/(%a+).fnl")
+          (util.load-file (: file-path :sub 0 -5))))
+  files-data)
 
 (fn util.make-id [?existing]
   (fn gen-id [x]
