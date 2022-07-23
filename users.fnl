@@ -1,23 +1,23 @@
 (local util (require :util))
 (local users {:commands {}})
 (fn users.read []
-  (util.load :users {}))
+  (util.load-file :user-accounts {}))
 
-(fn users.write [users]
-  (util.save users :users))
+(fn users.write [user-accounts]
+  (util.save-file user-accounts :user-accounts))
 
 (fn users.find-user [id]
-  (local users (users.read))
+  (local user-accounts (users.read))
   (local matches [])
-  (each [uid user (pairs users)]
+  (each [uid user (pairs user-accounts)]
     (when (= uid id)
       (table.insert matches user)))
   (. matches 1))
 
 (fn users.save-user [user]
-  (local users (users.read))
-  (tset users user.id user)
-  (users.write users))
+  (local user-accounts (users.read))
+  (tset user-accounts user.id user)
+  (users.write user-accounts))
 
 (fn users.make-user [id]
   (local pass (util.make-id))
