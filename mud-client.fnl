@@ -17,6 +17,10 @@
   (client:message (.. "Logging you in as user " user.id))
   (set client.user user)
   (set client.name user.id)
+  (each [relation relations (pairs user.relationships)]
+    (each [_ relationship (pairs relations)]
+      (local module (require relation))
+      (. module (.. :setup- relationship))))
   (tset client.commands :login nil))
 (fn client.message [client message]
   (set client.buffer (.. client.buffer message "\n")))
