@@ -1,6 +1,8 @@
 (local util (require :util))
 (local users (require :users))
-(local client {:name :Anonymouse :buffer "" :commands {}})
+(local client {:name :Anonymouse
+               :buffer ""
+               :commands {}})
 
 (fn client.parser [client input]
   (let [(command line) (input:match "([^ ]+) ?(.*)")]
@@ -20,7 +22,9 @@
   (each [relation relations (pairs user.relationships)]
     (each [_ relationship (pairs relations)]
       (local module (require relation))
-      (. module (.. :setup- relationship))))
+      (print :AHHH)
+      (print ((. (require :fennel) :view) module))
+      ((. module (.. :setup- relationship)) client)))
   (tset client.commands :login nil))
 (fn client.message [client message]
   (set client.buffer (.. client.buffer message "\n")))
