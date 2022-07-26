@@ -4,11 +4,6 @@
              :write-file util.save-file
              :read-folder util.load-folder})
 
-(fn data.read-file [file]
-  (util.load-file file {}))
-(fn data.write-file [file contents]
-  (util.save-file contents file))
-(fn data.wr
 (fn data.set-entry [file id details]
   (local contents (data.read file))
   (tset contents id details)
