@@ -8,7 +8,7 @@
         (table.insert matched element)))
     (if (> (length matched) 0) true nil)))
 
-(lambda util.scan-directory [path ?recurse ?type]
+(lambda util.scan-directory [path ?recurse ?type ?strip-ext]
   (local matches {})
   (local A (util.make-string-appender))
   (A ["find \"" path "\""])
@@ -18,7 +18,9 @@
     (each [result _ (results:lines)]
       (let [line (string.sub result (+ 2 (length path)))]
         (when (> (length line) 0)
-          (table.insert matches line)))))
+          (table.insert matches (if ?strip-ext
+                                    (: line :sub 0 -5)
+                                    line))))))
   matches)
 
 (fn util.load-file [path ?fallback]
@@ -29,6 +31,7 @@
           (do
             (util.save-file ?fallback path)
             (util.load-file path)))))
+
 (fn util.save-file [data path]
   (local file (io.open (.. path ".fnl") :w))
   (file:write (fennel.view data))
@@ -37,9 +40,8 @@
 (fn util.load-folder [path]
   (local files-data {})
   (each [_ file-path (pairs (util.scan-directory path nil :f))]
-    (tset files-data
-          (: file-path :match "/(%a+).fnl")
-          (util.load-file (: file-path :sub 0 -5))))
+    (local id (: file-path :sub 0 -5))
+    (tset files-data id (util.load-file (.. path :/ id))))
   files-data)
 
 (fn util.make-id [?existing]
@@ -66,6 +68,10 @@
                 (q v)))
         o)))
 
+(fn util.collect-keys [tbl]
+  "Return a list of the keys in TBL."
+  (icollect [key _ (pairs tbl)] key))
+
 (fn util.add-values [tab vals]
   (each [k v (pairs vals)]
     (tset tab k v))
@@ -76,6 +82,12 @@
   (util.add-values clone tab)
   (when ?new-values (util.add-values clone ?new-values))
   clone)
+
+(fn util.clone-sequence-without-nils [seq]
+  (local stripped [])
+  (each [key val (pairs seq)]
+    (when val (table.insert stripped val)))
+  stripped)
 
 (fn util.quibble-strings [strings ?resort ?oxfordize]
   "Return the sequence of STRINGS separated with commas and the conjunction 'and'. ?OXFORDIZE is currently irrelevant; strings are oxfordized by defualt."
@@ -97,6 +109,17 @@
           (set join ", "))
       (o [(. strings count) join]))
     (o))) 
+
+(lambda util.parse-time [str ?par]
+  (let [p (or ?par
+              "(%d%d%d%d)(%d%d)(%d%d):(%d%d)(%d%d)")
+        (year month day hour min) (str:match p)
+        offset (- (os.time)
+                  (os.time (os.date :!*t)))
+        sec 0]
+    (+ (os.time
+        {: day : month : year : hour : min : sec})
+       offset)))
 
 (lambda util.render-time [time]
   (os.date "%Y%m%d:%H%M%S" time))
