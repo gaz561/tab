@@ -1,6 +1,10 @@
 (local util (require :util))
 
-(fn add-task [task-list task ?details]
-  (local deets (or ?details {}))
-  (tset deets :task task)
-  (table.insert task-list deets))
+(local tasks {})
+
+(fn tasks.make-task [act ?details]
+  (local task (or ?details {}))
+  (set task.act act)
+  task)
+
+tasks

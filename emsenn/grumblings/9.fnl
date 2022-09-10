@@ -1,7 +1,7 @@
 {:meta {:type :grumbling
         :author :emsenn
         :sequence 9
-        :status [:status]
+        :status [:released]
         :syndication ["GAZ Forum"]}
  :title "Framing with a computer (What is the GAZ, #2)"
  :short-title "Framing with a computer"
