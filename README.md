@@ -16,11 +16,8 @@ Ask an administrator!
 
 ## Running the System
 
-```lisp
-(local mud (require :mud-server))
-(mud:start) (mud.timer:run)
-```
+    $ make run
 
 ## Building the System
 
-There's no documentation for how to build the system yet.
+    $ make gos-bin
