@@ -1,8 +1,7 @@
 (local data (require :data))
 (local util (require :util))
 
-(local library {:config {:id :durham-library}
-                :id :lending-library})
+(local library {:config {:id :durham-library}})
 
 (fn library.load []
   (data.read-file library.config.id))
