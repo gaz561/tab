@@ -21,7 +21,8 @@
   (client:message
    (.. "You have connected to " (or server.name "a server") ".\n"
        "Interact by inputting commands and pressing ENTER.\n"
-       "Use `commands` to see a list of your available commands.\n> ")))
+       "Use `commands` to see a list of your available commands.") true)
+  (set client.ready? true))
 (fn server.start [server]
   (set server.socket
        (assert (socket.bind "0.0.0.0"
@@ -33,15 +34,14 @@
   (let [new-conn (server.socket:accept)]
     (when new-conn (server:accept-connection new-conn)))
   (each [_ client (pairs server.clients)]
-    (var inputted? nil)
     (match (client.connection:receive)
       (_ "timeout") nil
       (_ err) (server:disconnect-client client)
       input (do (client:parse input)
-                (set inputted? true)))
+                (set client.ready? true)))
     (when (not (= (length client.buffer) 0))
-      (client.connection:send (.. client.buffer))
-      (when inputted?
+      (client.connection:send client.buffer)
+      (when client.ready?
         (client.connection:send "\n> "))
       (set client.buffer "")))
   (when ?repeat
