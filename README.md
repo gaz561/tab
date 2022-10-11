@@ -1,23 +1,36 @@
-# Groundhog Operating System
+# MarMUD
+*in midst of a million nightmares, a hold on one dream*
 
-**WARNING** This code exists for use by the Groundhog Autonomous Zone. It contains information on herbal treatments that can be *dangerous* or ***fatal***. Do not act on any information found in this repository without understanding that risk.
+***MarMUD*** is the working name of the MUD engine being built by and for the GAZ.
 
-*Another, less important warning* This code is written by, and for, folk who aren't professional computer users. This affects things in many ways; one way is that the best (and perhaps only) way to understand what is here is by talking to the actual people who've been involved in making it. So if something is unclear, or you don't know how to do something, ask someone who might! That said, an attempt will be made below to explain how to do some common tasks:
 
-## Using the System
+## Use
 
-### First Steps
+### Client
 
-Connect by asking an administrator for the current public address of the server, then do something like `telnet 192.168.0.11 4242` from your computer's console.
+#### Connecting
 
-### Requesting an Account
+	$ telnet localhost 4242
 
-Ask an administrator!
+### Admin
 
-## Running the System
+#### Running the System
 
-    $ make run
+    $ make lsr
 
-## Building the System
+#### Building the System
 
     $ make gos-bin
+
+#### Understanding the System
+
+## Plans
+### Soon
+- [ ] Add a talker (chat channels)
+- [ ] Add a reference library
+- [ ] Add user profiles
+  - [ ] Add `finger` command (lol, but its tradish)
+### Later
+- [ ] Add colours to the MUD output
+### Someday
+- [ ] Add MXP, MSSP, etc., support

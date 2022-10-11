@@ -2,7 +2,7 @@
 
 LUA_VERSION=5.4.4
 
-run: ; ./fennel main.fnl
+run: ; ./fennel run.fnl 
 
 gos-bin: main.fnl socket.a mime.a lua-$(LUA_VERSION)/src/liblua.a
 	./fennel --compile-binary $< $@ \
