@@ -75,6 +75,12 @@
   "Return a list of the keys in TBL."
   (icollect [key _ (pairs tbl)] key))
 
+(fn util.invert-table [tab]
+  (local inv {})
+  (each [k v (pairs tab)]
+    (tset inv v k))
+  tab)
+
 (fn util.add-values [tab vals]
   (each [k v (pairs vals)]
     (tset tab k v))
@@ -86,11 +92,33 @@
       (table.remove tab key)))
   tab)
 
+(fn util.drop-dupes [seq]
+  (local clean {})
+  (each [key val (pairs seq)]
+    (when (not (util.find-element clean val))
+      (table.insert clean val)))
+  clean)
+
 (fn util.clone-table [tab ?new-values]
-  (local clone {})
-  (util.add-values clone tab)
-  (when ?new-values (util.add-values clone ?new-values))
+  (local clone (collect [k v (pairs tab)] k v))
+  (when ?new-values
+    (util.add-values clone ?new-values))
   clone)
+
+(fn util.merge-tables [base addn ?clone]
+  (collect [k v (pairs addn)
+            :into (if ?clone
+                      (util.clone-table base)
+                      base)]
+    k v))
+
+(fn util.merge-models [base addn]
+  (when (not addn.behaviors) (set addn.behaviors []))
+  (local merger (util.merge-tables base addn true))
+  (each [_ beh (pairs base.behaviors)]
+    (table.insert merger.behaviors beh))
+  (set merger.behaviors (util.drop-dupes merger.behaviors))
+  merger)
 
 (fn util.clone-sequence-without-nils [seq]
   (local stripped [])
@@ -136,5 +164,20 @@
 
 (fn util.render-time [time]
   (os.date "%Y%m%d:%H%M" time))
+
+;;; Things
+(fn util.lookup-behavior [key behavior-name]
+   (. (util.load-file (.. :behaviors/ behavior-name)) key))
+(fn util.lookup-behavior-method [thing key]
+   (util.find-by thing.behaviors (partial util.lookup-behavior key)))
+(fn util.make-thing [model ?attributes ?engine]
+   (local thing
+          (util.clone-table
+           (util.load-file (.. :models/ model) ?attributes)))
+   (setmetatable thing {:__index util.lookup-behavior-method})
+   (when ?attributes (each [key val (pairs ?attributes)] (tset thing key val)))
+   (when ?engine (table.insert ?engine.things thing))
+   thing)
+
 
 util

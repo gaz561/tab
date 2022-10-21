@@ -1,2 +1,1 @@
-;; Load Start Run
-(: (require :engine) :lsr)
+(: ((. (require :util) :make-thing) :engine) :lsr)

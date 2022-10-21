@@ -1,5 +1,5 @@
 (local util (require :util))
-(util.clone-table
+(util.merge-models
  (util.load-file :models/thing)
  {:name "Timer"
   :behaviors [:timer]

@@ -3,7 +3,7 @@
   (fn [area]
     (area.map:save-area area))
   :receive-object
-  (fn [area object]
+  (fn receive-object [area object]
     (when object.location
       (object.location:remove-object object area))
     (table.insert area.contents object)

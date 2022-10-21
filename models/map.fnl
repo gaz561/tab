@@ -1,7 +1,7 @@
 (local util (require :util))
 (local area-model (util.load-file :models/area))
 
-(util.clone-table
+(util.merge-models
  (util.load-file :models/thing)
  {:name "Map"
   :description "This is the MUD map."

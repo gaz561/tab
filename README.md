@@ -42,67 +42,71 @@ Within the dimension, you yourself are a virtual object - a person, capable of l
 
 #### Understanding the System
 
-There's a central engine, that spawns "things", which are based on models that specify one or more sets of behavior. Models basically set up the schema for a given type of information, and behaviors determine how that info, when vitualized as a thing, can act.
+There's a central engine, that makes "things", which are based on models that specify one or more sets of behavior. Models basically set up the schema for a given type of information, and behaviors determine how that info, when vitualized as a thing, can act.
 
-##### Models
+These models and behaviors knit together in a way that forms the MUD.
 
-This section is a list of the various models we've already set up.
+##### Basic Things
 
-###### Area
+The following few sections describe some of the foundational models and their behaviors; these form the foundation that most other models are based on.
 
-An area is like, a bit of space, like a back porch or a street block. Areas have Area behaviors, as well as:
+The most-foundational thing is, well, the Thing. It has a `name`, a `description`, and a list of `behaviors`. (A basic thing doesn't have any behaviors, its just convenient to set up the list right away.)
 
-- contents, a list of things that are considered "in" the area.
-- exits, a table of the directions one might move, and the area they would move to.
+It's important to note that a Thing doesn't necessarily have to represent a physical thing: abstract concepts like a Plan are also Things.
 
-###### Client
+###### Objects, Containers, and Areas
 
-When someone connects to the Server, a Client thing is made and associated with the connection.
+That said, a lot of Things are Objects, which basically means they're treated like real physical, well, objects - at least, "real" within the scope of the virtual reality we're making out of Things. In order to be "real" in that way, an Object needs to have a `location`, which is some other Thing that is a Container (e.g. can contain objects).
 
-###### Map
+There's a variation of Container, an Area, that has another attribute, beside `contents`: `exits`, which is a table of other Areas an Object can `move` to.
+###### Mapper, Timer, and Server Services
 
-A Map is a collection of Areas.
+How does the engine find one area from another? By using another type of Thing, a Service, specifically the Mapper service, with behaviors for looking up areas based on ID and other such things.
 
-###### Server
+There's a couple other services that are really important:
 
-The Server is what handles accepting TELNET connections, sending them text, accepting their commands, etc.
+There's a Timer. Where Mapper helps simulate spatial dimensions, the Timer helps simulate temporality, by letting "events" get scheduled some number of "ticks" in the future. (A tick is 1/5th a second, give or take.)
 
-###### Tester
+And there's a Server, that lets folk connect via TELNET and associates them with a Client thing, which is notable for being able to be controlled by the connected person, not just the engine. (I mean, their control goes through the engine, but.)
 
-The Tester thing is for testing out new stuff.
+##### Funkier Models
 
-###### Thing
+###### User Accountant
 
-The Thing is the basic thing, that others base themselves on.
+The User Accountant handles keeping different users of the MUD separate from each other and helps protect privileged access. User is a kind a Thing that's merged with a Client once that Client logs in.
 
-Things have:
+###### Project Management, Beliefs to Tasks
 
-- a `name`, a string that is how to refer to them
-- a `description`, a longer description of what the thing is.
+Beliefs are a very abstract thing; they're a description of a thing that could be true.
 
-###### Timer
+Goals are a description of something that is desired. Most Goals are associated with one or more Beliefs that describe *why* they are wanted.
 
-A Timer handles the scheduling of "events", functions that get called at some point in the future. I.e., a Server schedules a "tick" event every tick, when a Client moves to a new Area, the movement is scheduled.
+Projects are how Goals are realized. They contain a list of Tasks.
 
-###### Users
+Tasks are descriptions of actions that can be taken, sometimes with additional information like the tools required, the time the task takes, etc.
 
-The Users thing handles user accounts.
+###### Libraries and Entries
 
-##### Behaviors
+Libraries are collections of (library) Entries, which are either references to external documents like PDFs or images, or just, text stored inside the entry itself.
 
-###### Area
+## Model Map
 
-###### Client
-
-###### Map
-
-###### Server
-
-###### Tester
-
-###### Timer
-
-###### Users
+```mermaid
+graph TD;
+  click thing "models/thing.fnl"
+  thing --> container
+  thing --> object
+  thing --> project
+  thing --> service
+  thing --> task
+  container --> area
+  object --> client
+  service --> fortunes
+  service --> map
+  service --> mud-server
+  service --> timer
+  service --> users
+```
 
 ## Plans
 ### Soon

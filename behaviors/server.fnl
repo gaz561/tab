@@ -9,10 +9,14 @@
                  {: connection : server
                   :engine server.engine})]
      (table.insert server.clients client)
-      (when server.engine.map.start-area
-        (client:move (server.engine.map:find-area
-                      server.engine.map.start-area)))
-      (server:greet-client client)))
+     (client:message
+      (.. "Your connection to " server.engine.name " has been accepted."))
+     (server.engine.timer:schedule
+      (fn []
+        (server.engine.timer:schedule
+         (fn []
+           (client:message
+            server.description)))))))
  :disconnect-client
  (fn [server client]
    (client:message (.. "Disconnecting you now; goodbye!"))
@@ -38,8 +42,7 @@ Use `commands` to see a list of your available commands.
    (server.engine:log :debug (.. "Starting " server.name))
    (if server.loaded
        (do
-         (local port (or server.engine.conf.mud-port
-                         (or server.port 4242)))
+         (local port (or server.port 4242))
          (server.engine:log :debug (.. "Starting " server.name
                                        " on port " port))
          (set server.socket (assert (socket.bind "0.0.0.0" port)))
