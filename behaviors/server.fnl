@@ -10,13 +10,14 @@
                   :engine server.engine})]
      (table.insert server.clients client)
      (client:message
-      (.. "Your connection to " server.engine.name " has been accepted."))
-     (server.engine.timer:schedule
-      (fn []
-        (server.engine.timer:schedule
-         (fn []
-           (client:message
-            server.description)))))))
+      (.. "Your connection to " (server.engine:fname) " has been accepted.\n"
+          server.description "\n"
+          server.engine.description "\n"))
+     (client.commands.help client)
+     (when (and client.engine.map
+                client.engine.map.start-area)
+       (client:move
+        (client.engine.map:find-area client.engine.map.start-area)))))
  :disconnect-client
  (fn [server client]
    (client:message (.. "Disconnecting you now; goodbye!"))

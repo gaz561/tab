@@ -2,11 +2,11 @@
 
 (util.merge-models
  (util.load-file :models/thing)
- {:name "MUD engine"
-  :description "This is a MUD engine"
+ {:name "TABby"
+  :description "TABby, short for Things with Attributes and Behaviors, is a computer system for virtualizing various types of information. If that doesn't mean anything, that's fine."
   :behaviors [:engine]
   :grammar {:article :a}
-  :services [:fortunes :map :server :users :timer]
+  :services [:fortunes :map :server :users :talker :timer]
   :log-level :spam
   :things []
   :log-levels {:critical 1 :error 2
