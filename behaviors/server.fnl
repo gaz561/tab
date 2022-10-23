@@ -10,7 +10,7 @@
                   :engine server.engine})]
      (table.insert server.clients client)
      (client:message
-      (.. "Your connection to " (server.engine:fname) " has been accepted.\n"
+      (.. "Your connection to " (server:fname) " has been accepted.\n"
           server.description "\n"
           server.engine.description "\n"))
      (client.commands.help client)

@@ -3,6 +3,7 @@
 
 ***MarMUD*** is the working name of the MUD engine being built by and for the GAZ.
 
+***WARNING:*** There's data about plant toxicity and herbalism and stuff in here that shouldn't be used by anyone except the folk who wrote it. Don't use it! Don't!
 
 ## Use
 
