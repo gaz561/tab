@@ -35,7 +35,7 @@ Within the dimension, you yourself are a virtual object - a person, capable of l
 
 #### Running the System
 
-    $ make lsr
+    $ make run
 
 #### Building the System
 
@@ -94,17 +94,25 @@ Libraries are collections of (library) Entries, which are either references to e
 
 ```mermaid
 graph TD;
-  click thing "models/thing.fnl"
+  act --> task
+  container --> area
   thing --> container
+  thing --> idea
   thing --> object
   thing --> project
   thing --> service
   thing --> task
-  container --> area
+  idea --> belief
+  idea --> goal
+  idea --> act
+  idea --> project
+  idea --> value
   object --> client
   service --> fortunes
+  service --> librarian
   service --> map
   service --> mud-server
+  service --> project-manager
   service --> timer
   service --> users
 ```

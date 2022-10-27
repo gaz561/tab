@@ -17,7 +17,8 @@
      (when (and client.engine.map
                 client.engine.map.start-area)
        (client:move
-        (client.engine.map:find-area client.engine.map.start-area)))))
+        (client.engine.map:find-area client.engine.map.start-area)))
+     (set client.input-ready? true)))
  :disconnect-client
  (fn [server client]
    (client:message (.. "Disconnecting you now; goodbye!"))
@@ -66,7 +67,7 @@ Use `commands` to see a list of your available commands.
        (_ "timeout") nil
        (_ err) (server:disconnect-client client err)
        input (do (client:parse input)
-                 (set inputted? true)))
+                 (set client.input-ready? true)))
      (when (not (= (length client.buffer) 0))
        (server.engine:log :debug (.. "Sending message to "
                                      client.name ": "
@@ -74,9 +75,11 @@ Use `commands` to see a list of your available commands.
                                      (if (> (length client.buffer) 12)
                                          "..."
                                          "")))
+       ;; strip extra newlines from the end of output here? seems better than trying to avoid them accruing lol
        (client.connection:send
-        (.. client.buffer (if inputted? "\n> " "")))
-       (set client.buffer "")))
+        (.. client.buffer (if client.input-ready? "\n> " "")))
+       (set client.buffer "")
+       (set client.input-ready? nil)))
    (when ?repeat
      (server.engine.timer:schedule
       (partial server.tick server true))))}
