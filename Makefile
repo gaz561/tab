@@ -1,10 +1,13 @@
-# Largely based on the build from the pengbot irc bot
+# Tabby MUD engine Makefile
+
+# written by technomancy; based on their pengbot's Makefile
+
 
 LUA_VERSION=5.4.4
 
-run: ; ./fennel run.fnl 
+run-marmud: ; ./fennel run-marmud.fnl 
 
-gos-bin: main.fnl socket.a mime.a lua-$(LUA_VERSION)/src/liblua.a
+tab-bin: marmud.fnl socket.a mime.a lua-$(LUA_VERSION)/src/liblua.a
 	./fennel --compile-binary $< $@ \
 		lua-$(LUA_VERSION)/src/liblua.a lua-$(LUA_VERSION)/src \
 		--native-module socket.a --native-module mime.a
@@ -47,7 +50,7 @@ mime.a: luasocket/src/mime.o luasocket/src/compat.o
 # misc
 
 clean:
-	rm -f gos-bin mime.a socket.a
+	rm -f tab-bin mime.a .a
 	make -C luasocket clean
 	make -C lua-$(LUA_VERSION) clean
 

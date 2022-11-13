@@ -1,0 +1,1 @@
+(: (require :marmud) :lsr)
