@@ -1,4 +1,4 @@
-;;;; mudsocket server behaviors
+;;;; MUDSocket server behaviors
 
 (local tab (require :tab))
 (local socket (require :socket))
@@ -9,11 +9,9 @@
 (fn mud-server-behaviors.accept-connection [server connection]
   (tab.log :debug (.. (server:fname) " accepting new connection"))
   (connection:settimeout server.timeout)
-  (let [client (tab.make-model
-                (or server.dimension.conf.mud-client-model
-                    :mud/client)
-                {: connection : server
-                 :dimension server.dimension})]
+  (let [client (tab.make-thing server.mud-client-model
+                               {: connection : server
+                                :dimension server.dimension})]
     (table.insert server.clients client)
     (client:message
      (.. "Your connection to " (server:fname) " has been accepted.\n"
@@ -21,9 +19,9 @@
          (server.dimension:describe) "\n"))
     (client:parse "help")
     (when (and client.dimension.map
-               client.dimension.conf.start-area)
+               client.dimension.map.start-area)
       (client:move
-       (client.dimension.map:find-area client.dimension.conf.start-area)))
+       (client.dimension.map:find-area client.dimension.map.start-area)))
     (set client.input-ready? true)))
 
 (fn mud-server-behaviors.disconnect-client [server client]
@@ -39,7 +37,6 @@
   (tab.log :debug (.. "Loaded " server.name)))
 
 (fn mud-server-behaviors.start [server]
-  (tab.log :debug (.. "Starting " server.name))
   (if server.loaded
       (do
         (local port (or server.port 4242))

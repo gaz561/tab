@@ -2,12 +2,12 @@
 (local tab (require :tab))
 
 (fn ld [mapper dimension]
-  (each [_ model (pairs dimension.conf.area-list)]
-    (tset mapper.areas model (dimension:make-model model))
+  (each [_ model (pairs mapper.area-list)]
+    (tset mapper.areas model (dimension:make-thing model))
     (let [area (. mapper.areas model)]
       (when area.lookables
         (each [num lookable-model (pairs area.lookables)]
-          (let [lookable (dimension:make-model :vr/lookable lookable-model)]
+          (let [lookable (dimension:make-thing :vr/lookable lookable-model)]
             (tset area.lookables num lookable))))))
   (set mapper.loaded? true))
 

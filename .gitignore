@@ -1,10 +1,6 @@
 *~
-/old-stuff
 /files
-/digital-resources-files
-/digital-resources-files-triage
-/data/users
-/data/emsenn
+/models/per
 /luasocket
 /lua-5.*
 /gos-bin

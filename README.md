@@ -1,28 +1,32 @@
 # TAB
 *Things with Attributes and Behaviors*
 
-> ***TAB*** - short for *Things with Attributes and Behaviors* - is a way of modeling things (from blueberry bushes to weather systems) using digital computers, to help folk affiliated with the Groundhog Autonomous Zone coordinate their understanding of information.
+> ***TAB*** is a system for structuring information to allow for computed analysis & manipulation.
+
+TAB uses the Fennel programming language to establish a set of constructs to provide a framework for operations: A *thing* is *made* from a *model* defining the thing's *attributes* and *behaviors*.
+
+***Note:*** TAB is currently in the earliest stages of development, and is created as a hobby-project. Code is incomplete, buggy, likely to change, and unlikely to ever be suitable for use by others.
 
 ## Getting Started
 
-First, from the shell, get the source code & prep Fennel. *(You'll need Lua & Git installed before this.)*
+To use TAB, you'll need Lua & Git installed on your system.
 
-	$ git clone https://github.com/gaz/tab.git
 	$ make tab-bin
-	$ fennel
+	
+Once that's done, you can start the Fennel REPL with the `fennel` command, and from there you can load in TAB and start making things:
 
-Then, you'll be in the Fennel REPL, and can do:
+```
+>> (local tab (require :tab))
+nil
+>> (local apple (tab.make-thing :vr/object {:name :apple}))
+nil
+>> (local backpack (tab.make-thing :vr/container {:name :backpack}))
+nil
+>> backpack.contents
+[]
+>> (apple:move backpack)
+nil
+>> (tab.list-values backpack.contents :name)
+["apple"]
+```
 
-	>> (local tab (require :tab))
-	nil
-	>> (tab.doc tab.make-model)
-	"(nil model-name ?additional ?dimension)
-	  Make the model found at MODEL-NAME, adding in the ?ADDITIONAL attributes if provided, and setting the made thing's ?DIMENSION if provided."
-	>> (local something (tab.make-model :thing))
-	nil
-	>> something.name
-	"thing"
-	>> (something:fname) ; full name
-	"a thing"
-
-More README coming soon!

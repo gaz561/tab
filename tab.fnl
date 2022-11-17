@@ -147,6 +147,13 @@
   "Return a list of the keys in TBL."
   (icollect [key _ (pairs tbl)] key))
 
+(fn tab.list-values [tabs key]
+  "Return a list of the values for KEY in each table in TABS."
+  (let [lst []]
+    (each [_ tab (pairs tabs)]
+      (table.insert lst (. tab key)))
+    (tab.drop-dupes lst)))
+
 (fn tab.add-values [tab addn]
   (each [k v (pairs addn)]
     (tset tab k v)))
@@ -203,19 +210,19 @@
 (fn tab.lookup-command [command]
   (tab.load-file (.. :commands/ command)))
 
-(fn tab.load-model [model-name]
-  (tab.load-file (.. (or conf.model-folder :models)
-                      :/ model-name)))
+(fn tab.load-attributes-file [attr-path]
+  (tab.load-file (.. :attributes
+                      :/ attr-path)))
 
-(fn tab.clone-model [model-name]
-  (collect [k v (pairs (tab.load-model model-name))] k v))
+(fn tab.clone-attributes-from-file [attr-path]
+  (collect [k v (pairs (tab.load-attributes-file attr-path))] k v))
 
 (fn tab.collect-bases [thing ?collection ?prefix]
   (let [collection (or ?collection [])]
     (when thing.base
       (if (= (type thing.base) :string)
           (let [model-name thing.base
-                model (tab.load-model thing.base)]
+                model (tab.load-attributes-file thing.base)]
             (when model.base
               (tab.collect-bases model collection true))
             (if ?prefix
@@ -225,7 +232,7 @@
           (= (type thing.base) :table)
           (for [i (length thing.base) 1 -1]
             (let [model-name (. thing.base i)
-                  model (tab.load-model model-name)]
+                  model (tab.load-attributes-file model-name)]
               (when model.base (tab.collect-bases model collection true))
               (if ?prefix
                   (table.insert collection 1 model-name)
@@ -269,18 +276,18 @@
   base)
 
 
-(fn tab.make-model [model-name ?addn ?dimension]
+(fn tab.make-thing [attr-path ?addn ?dimension]
   {:fnl/docstring "Make the model found at MODEL-NAME, adding in the ?ADDITIONAL attributes if provided, and setting the made thing's ?DIMENSION if provided."
    :fnl/arglist [model-name ?additional ?dimension]}
   (let [made-thing {}
         base-collection []
-        model (tab.clone-model model-name)]
+        model (tab.clone-attributes-from-file attr-path)]
     (tab.collect-bases model base-collection)
     (when ?addn (tab.collect-bases ?addn base-collection))
     (let [clean-base-collection (tab.reverse-list
                                  (tab.drop-dupes base-collection))]
       (each [_ base-model-name (pairs clean-base-collection)]
-        (tab.merge-models made-thing (tab.load-model base-model-name))))
+        (tab.merge-models made-thing (tab.load-attributes-file base-model-name))))
     (set model.base nil)
     (tab.merge-models made-thing model)
     (when ?addn

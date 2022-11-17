@@ -2,15 +2,15 @@
 
 (local tab (require :tab))
 
-(fn make-model [dimension model ?addn]
-  (tab.make-model model ?addn dimension))
+(fn make-thing [dimension attr-path ?addn]
+  (tab.make-thing attr-path ?addn dimension))
 
 (fn ld [dimension] ; avoid overwriting a global function
   "Load DIMENSION: make the systems in its system-list, then load them if they've got a load method."
   (tab.log :info (.. "Loading " (dimension:fname)))
   (each [system-name model-name (pairs dimension.systems)]
     (tab.log :debug (.. "Making " system-name " system"))
-    (tset dimension system-name (dimension:make-model model-name))
+    (tset dimension system-name (dimension:make-thing model-name))
     (let [s (. dimension system-name)]
       (when s.load
         (s:load dimension))))
@@ -53,4 +53,4 @@
 {:load ld ; rename it back to load
  : start : run
  : lsr
- : make-model}
+ : make-thing}

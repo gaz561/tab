@@ -1,4 +1,6 @@
-(local object {})
+;;; VR object behaviors
 
-(fn object.move [object destination]
-  (destination:receive-object))
+(fn move [object destination]
+  (destination:receive-object object))
+
+{: move}
