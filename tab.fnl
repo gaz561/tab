@@ -43,10 +43,11 @@
     (lambda q [r]
       (set o (.. o r (or ?sep ""))) o)
     (if ?a
-        (if (= (type ?a) :string)
-              (q ?a)
-              (each [_ v (pairs ?a)]
-                (q v)))
+        (if (or (= (type ?a) :string)
+                (= (type ?a) :number))
+            (q ?a)
+            (each [_ v (pairs ?a)]
+              (q v)))
         o)))
 
 (fn tab.quibble-strings [strings ?resort ?oxfordize]
@@ -80,6 +81,18 @@
             (table.insert words word)
             (set done? true))))
     words))
+
+(fn tab.make-id [?existing]
+  (math.randomseed (os.time))
+  (fn gen-id [x]
+    (let [r (- (math.random 16) 1)
+          p (or (and (= x :x) (+ r 1)) (+ (% r 4) 9))]
+      (: :0123456789abcdef :sub p p)))
+  (let [gen (: :xxxxxxxx :gsub "[xy]" gen-id)]
+    (print "generated" gen)
+    (if (tab.find-element (or ?existing []) gen)
+        (tab.make-id ?existing)
+        gen)))
 
 ;;; Time
 
@@ -281,7 +294,9 @@
    :fnl/arglist [model-name ?additional ?dimension]}
   (let [made-thing {}
         base-collection []
-        model (tab.clone-attributes-from-file attr-path)]
+        model (if (= (type attr-path) :string)
+                  (tab.clone-attributes-from-file attr-path)
+                  attr-path)]
     (tab.collect-bases model base-collection)
     (when ?addn (tab.collect-bases ?addn base-collection))
     (let [clean-base-collection (tab.reverse-list

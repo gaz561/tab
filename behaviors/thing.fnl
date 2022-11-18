@@ -6,8 +6,11 @@
 (fn thing.fname [thing]
   (.. (if (and thing.grammar
                thing.grammar.article)
-          (.. thing.grammar.article " ")
-          (if (tab.find-element [:a :e :i :o :u] (string.sub thing.name 1 1))
+          (.. thing.grammar.article (if (> (length thing.grammar.article) 0)
+                                        " "
+                                        ""))
+          (if (tab.find-element [:a :e :i :o :u] (string.lower
+                                                  (string.sub thing.name 1 1)))
               "an "
               "a "))
       thing.name))

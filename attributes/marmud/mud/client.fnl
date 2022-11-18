@@ -1,2 +1,2 @@
-{:name "MarMUD Client"
- :base [:vr/mud-client]}
+{:name "Anonymouse"
+ :base [:users/mud/client :vr/mud/client]}

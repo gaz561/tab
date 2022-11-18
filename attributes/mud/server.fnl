@@ -1,5 +1,5 @@
 ;;;; MUDSocket server model
-
+;; ../../behaviors/mud/server.fnl
 {:name "MUD server"
  :base :sys/basic
  :behaviors [:mud/server]

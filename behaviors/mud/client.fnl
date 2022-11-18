@@ -5,7 +5,7 @@
 (local client-behaviors {})
 
 (fn client-behaviors.chat [client channel message]
-  (client.engine.talker:receive-message client channel message))
+  (client.dimension.talker:receive-message client channel message))
 (fn client-behaviors.login [client user]
   (client:message (.. "Logging you in as " user.id))
   (set client.user user)
