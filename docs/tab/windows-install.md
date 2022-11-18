@@ -1,0 +1,39 @@
+# Installing TAB on Windows
+
+- Install Windows Subsystem for Linux
+  - Open powershell as admin
+  - `wsl --install`
+    - This errored for us and we had to go into our BIOS and enable virtualization
+	  - On our computer, that meant turning it off, and back on, and then mashing the ENTER key to bring up a boot menu
+	    - then pressing F1 to go to bios config
+		- Then going to the virtualization tab and turning on both options
+	- After doing that we rebooted and then started the "Ubuntu" app (that's the name of the type of Linux that got installed)
+	  - then set up our account
+  - once that was done, we were looking at a terminal interface
+  - check and make the system is up-to-date (ours wasnt) by running these commands
+	- `sudo apt update`
+	- `sudo apt upgrade`
+  - once that's done, lets install the software we need:
+    - First, the stuff to make Lua:
+      - `sudo apt install build-essential libreadline-dev`
+	- Next, let's actually make Lua:
+      - `mkdir lua-build`
+	  - `cd lua-build`
+	  - `curl -R -O http://www.lua.org/ftp/lua-5.4.4.tar.gz`
+	  - `tar zxf lua-5.4.4.tar.gz`
+      - `cd lua-5.4.4`
+	  - `make linux test`
+	  - `sudo make install`
+  - next we gotta set up our ssh keys and import them into github
+    - run this command:
+	  - `ssh-keygen -t ed25519 -C "your_email@example.com"`
+	  - (replace the email address)
+	- Copy the text in the file at `~/.ssh/id_ed25519.pub` into the form at
+  - We should be good to grab the TAB code from github now - assuming you've been added to the repository:
+    - `git clone git@github.com:gaz561/tab.git`
+  - Move into that folder: `cd tab`
+  - Set up our dependencies
+    - `make tab-bin`
+  - That's as far as we've gotten!
+    - If I try and do `make marmud` from here I get an error about Lua being unable to find the socket module.
+  

@@ -7,7 +7,7 @@ LUA_VERSION=5.4.4
 
 marmud: ; ./fennel -e "(: ((. (require :tab) :make-thing) :marmud/dimension) :lsr)"
 
-tab-bin: marmud.fnl socket.a mime.a lua-$(LUA_VERSION)/src/liblua.a
+tab-bin: tab.fnl socket.a mime.a lua-$(LUA_VERSION)/src/liblua.a
 	./fennel --compile-binary $< $@ \
 		lua-$(LUA_VERSION)/src/liblua.a lua-$(LUA_VERSION)/src \
 		--native-module socket.a --native-module mime.a
