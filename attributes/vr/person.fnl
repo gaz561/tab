@@ -1,2 +1,2 @@
 {:name "somebody"
- :base [:object]}
+ :base [:vr/mobile]}

@@ -13,4 +13,10 @@
              {:name "tabletop"
               :description "The top of the table is a glazed glass, lit from beneath so that papers set on it are easier to read."
               :grammar {:nouns [:top]
-                        :adjectives [:table :glass :glazed :lit]}}]}
+                        :adjectives [:table :glass :glazed :lit]}}
+             {:name "wall interface"
+              :description "All along the walls are a variety of dials, in different sizes, along with levers, buttons, switches, and so on."
+              :grammar {:nouns [:dial :dials :interface :interfaces :levers :lever :buttons :button :switches :switch]
+                        :adjectives [:wall]}}
+             {:name "walls"
+              :description "The walls of the bridge are almost entirely covered with means of interfacing with the vast tool that is the Okaga."}]}

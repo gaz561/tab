@@ -5,6 +5,8 @@
       (let [matches []]
         (client:message (.. "You attempt to look at '" input "'."))
         (when client.location
+          (when (client.location:term=? input)
+            (table.insert matches client.location))
           (client.location:search-area input matches))
         (if (= (length matches) 1)
             (client:look (. matches 1))

@@ -1,3 +1,3 @@
 {:base :mud/client
  :behaviors [:users/mud/client]
- :command-list [:login]}
+ :command-list [:chat :login]}

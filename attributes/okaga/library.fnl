@@ -8,6 +8,8 @@
  :contents [{:name "Ikmu"
              :description "This is Ikmu the cat."
              :base [:vr/mobile]
+             :noises [[1 "Ikmu meows."]]
              :animations [:roam]
              :region-lock :okaga
-             :roam-frequencey 3}]}
+             :roam-frequencey 3
+             :grammar {:article ""}}]}

@@ -36,6 +36,14 @@
 
 ;;; Strings
 
+(fn tab.concat [...]
+  (let [stab (table.pack ...)
+        A (tab.make-string-appender)]
+    (set stab.n nil)
+    (each [_ str (pairs stab)]
+      (A str))
+    (A)))
+
 (fn tab.make-string-appender [?sep]
   "Return a function that holds a string and accepts one atctional argument (string or list of strings). If provided, the argument is appended to the held string, with SEP appended (to each one, if its a list of strings.)"
   (var o "")
