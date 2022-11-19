@@ -1,6 +1,6 @@
 ;;;; Bellybrush Road, South Arathel (Teraum) model
 
-(local game :teraum/eastlands/green-delta/game/
+(local game :teraum/eastlands/green-delta/game/)
 
 {:name "Bellybrush Road"
  :base :teraum/eastlands/green-delta/game/south-arathel/rural-road

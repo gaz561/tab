@@ -1,3 +1,5 @@
+;;;; user handler behaviors
+
 (local tab (require :tab))
 
 (fn ld [handler dimension]
@@ -38,7 +40,10 @@
              (tset handler.users id (tab.make-thing new-user)))))
      (tab.log :error "Can't make a user until the handler system has been loaded.")))
 
-
+(fn setup-user [handler user]
+  (tab.log :debug "Setting up " (user:fname) "as a user")
+  (table.insert user.command-list :finger))
 
 {:load ld
- : find-user : make-user}
+ : find-user : make-user
+ : setup-user}

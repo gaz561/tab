@@ -5,7 +5,7 @@
          :northeast :teraum/eastlands/green-delta/game/ack/piketown-gate
          :northwest :teraum/eastlands/green-delta/game/ack/garys-gate}
  :contents [{:name "Bill Hags"
-             :base [:npc :teraum/eastlands/green-delta/game/gamer]
+             :base [:teraum/npc :teraum/eastlands/green-delta/game/gamer]
              :description "Bill Hags is one of many migrant human workers. He travels the world, doing whatever labour is available."
              :contents [{:name "a letter"
                          :base [:object]
@@ -22,4 +22,4 @@ Especially if the work keeps up like this. You wrote back that you were worried 
 
 I didn't forget what you said about your brother. I would happily find him work if he came out, but I don't know if it's the right decision. Tyjeer's still a boy, and this work isn't always safe. I don't want you to worry about me, but I'd hate for Ty to grow up without his father able to provide for him. Let me know what he needs, and I can send the money to get it for his Wintertyg. Try and convince him to stay in Dent.
 Give my best to all,
-Bill"}]}
+Bill"}]}]}

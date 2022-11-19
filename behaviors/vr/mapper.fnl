@@ -3,6 +3,7 @@
 
 (fn ld [mapper dimension]
   (each [_ model (pairs mapper.area-list)]
+    (tab.log :debug "Making area " model)
     (tset mapper.areas model (dimension:make-thing model))
     (let [area (. mapper.areas model)]
       (when area.lookables
@@ -10,10 +11,11 @@
           (let [lookable (dimension:make-thing :vr/lookable lookable-model)]
             (tset area.lookables num lookable))))
       (when area.contents
-        (each [num object-model (pairs area.contents)]
-          (tset area.contents num nil)
-          (let [object (dimension:make-thing :vr/object object-model)]
-            (object:move area))))))
+        (let [model-contents (tab.clone-table area.contents)]
+          (set area.contents [])
+          (each [_ model (pairs model-contents)]
+          (let [object (dimension:make-thing :vr/object model)]
+            (object:move area)))))))
   (set mapper.loaded? true))
 
 (fn find-area [mapper id]

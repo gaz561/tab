@@ -7,6 +7,6 @@
              {:name "gray gravel"
               :description "The gray gravel that paves the Longroad is clearly not from here."
               :grammar {:nouns [:gravel]
-                        :adjectives [:gray]}}
+                        :adjectives [:gray]}}]
  :exits {:north :teraum/eastlands/central-plains/west-kingsroad-1
          :south :teraum/eastlands/gloaming/central-longroad}}

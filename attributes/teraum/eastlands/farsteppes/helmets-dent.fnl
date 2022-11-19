@@ -7,13 +7,13 @@
          :southeast :teraum/eastlands/farsteppes/road-to-culver-estate
          :west :teraum/eastlands/farsteppes/kingsroad}
  :contents [{:name "Susan Baff"
-             :base [:npc :teraum/eastlands/farsteppes/stepper]
+             :base [:teraum/npc :teraum/eastlands/farsteppes/stepper]
              :description "Susan Baff is a feminine human who lives in Helmet's Dent, wokring as a cleaner and clerk for various businesses in town."}
             {:name "Tyjeer Baff"
-             :base [:npc :teraum/eastlands/farsteppes/stepper]
+             :base [:teraum/npc :teraum/eastlands/farsteppes/stepper]
              :description "This is Tyjeer Baff, a masculine human around 12 or 13 years old."}
             {:name "Nash Celson"
-             :base [:npc :teraum/eastlands/farsteppes/stepper]
+             :base [:teraum/npc :teraum/eastlands/farsteppes/stepper]
              :description "Nash Celson is a non-descript masculine adult human."
              :trivia ["Nash Celson is named after a former artistic accomplice of emsenn's."]}
             {:name "ragar"

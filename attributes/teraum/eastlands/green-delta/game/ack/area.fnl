@@ -1,6 +1,6 @@
 {:name "somewhere in Ack"
  :base [:teraum/eastlands/green-delta/game/area
-        :teraum/eastlands/green-delta/game/ack/ackerr]
+        :teraum/eastlands/green-delta/game/ack/acker]
  :trivia ["The city of Ack once had a different name, but it was replaced by the involuntary sound visitors made when they first encounter its infamous stink."
           "The city of Ack is bisected by the Green River, though it is brown with silt and sewage long before it approaches the city."
           "The city of Ack is built on the eastern coast of the Optic Ocean."

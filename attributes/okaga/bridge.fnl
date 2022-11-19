@@ -19,4 +19,9 @@
               :grammar {:nouns [:dial :dials :interface :interfaces :levers :lever :buttons :button :switches :switch]
                         :adjectives [:wall]}}
              {:name "walls"
-              :description "The walls of the bridge are almost entirely covered with means of interfacing with the vast tool that is the Okaga."}]}
+              :description "The walls of the bridge are almost entirely covered with means of interfacing with the vast tool that is the Okaga."}
+             {:name "metal"
+              :description "The metal that composes the table in the center of the room is the same light gray as the walls."
+              :grammar {:adjectives ["light gray" :gray]}}
+             {:name "ceiling"
+              :description "The ceiling here is a single panel that is lit up a soft whip."}]}

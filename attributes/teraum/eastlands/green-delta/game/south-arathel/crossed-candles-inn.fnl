@@ -28,7 +28,7 @@
               :grammar {:nouns [:siding :slats :slat]
                         :adjectives [:pine :ruddy :wood :wooden :vertical]}}
              {:name :windows
-              :actions [[2 "The wind outside bangs the shutters in their frames.")
+              :actions [[2 "The wind outside bangs the shutters in their frames."]
                         [2 "The wind outside carries in the faint smell of brine and turpentine."]]}
              {:name :yokels
               :description "The patrons of this bar are mostly local yokels, workers and farmers from around South Arathel."

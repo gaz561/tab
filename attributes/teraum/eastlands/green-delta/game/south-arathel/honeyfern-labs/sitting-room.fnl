@@ -3,6 +3,6 @@
 (local region :teraum/eastlands/green-delta/game/south-arathel/honeyfern-labs/)
 
 {:name "sitting room, Honeyfern Labs"
- :base (.. :area)
+ :base (.. region :area)
  :description "This is the sitting room of Honeyfern Laboratories. A door leads to the foyer."
  :exits {:door (.. :foyer)}}

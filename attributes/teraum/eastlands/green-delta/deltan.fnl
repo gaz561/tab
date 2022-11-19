@@ -1,2 +1,2 @@
 {:name "Deltan thing"
- :base :teraum/eastlands/eastlands}
+ :base :teraum/eastlands/eastern}

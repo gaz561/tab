@@ -11,6 +11,11 @@
   (table.insert client.user.history {:time (os.time)
                                      :event "Logged in"})
   (set client.command-list (tab.remove-value client.command-list :login))
-  (table.insert client.command-list :finger))
+  (when user.system-relationships
+    (tab.log :debug "Setting up users' relatinships")
+    (each [relation relations (pairs user.system-relationships)]
+      (local system (. client.dimension relation))
+      (each [_ relationship (pairs relations)]
+        (: system (.. :setup- relationship) client)))))
 
  {: login}

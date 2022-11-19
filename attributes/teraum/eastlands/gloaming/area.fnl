@@ -1,4 +1,4 @@
 ;;;; Gloaming area model
 
 {:name "somewhere in the Gloaming"
- :base [:map/area :teraum/eastlands/gloaming/gloamer]}
+ :base [:teraum/eastlands/area :teraum/eastlands/gloaming/gloamer]}

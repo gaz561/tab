@@ -1,6 +1,6 @@
 ;;;; Teraum area model
 {:name "somewhere on Teraum"
- :base [:map/area :teraum/teraumi]
+ :base [:vr/area :teraum/teraumi]
  :trivia ["Teraum was created around 2001 by emsenn, though at that time it was called Canland, because the world existed inside a soup can."
           "There's no evidence that the world of Teraum does not exist inside a soup can."
           "Teraum is a portmanteau of \"Terra, with thaums,\" or, \"Earth, with magic.\""

@@ -51,7 +51,7 @@ A bridge from here lead north across the murky brown Green River toward the Nort
              {:name "ships"
               :description "The ships that make up the wall around the Dock Ward are old and covered in graffiti. Many of the ships show signs of severe fire damage."
               :grammar {:adjectives [:decommissioned :old]
-                        :nouns :ships}}
+                        :nouns [:ships]}}
              {:name "stores"
               :description "Some of the ships that make up the Dock Ward's outer wall have small stores tucked inside them."}
              {:name "Squash Ward"

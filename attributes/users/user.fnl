@@ -1,2 +1,3 @@
 {:name "user"
- :base [:misc/history]}
+ :base [:misc/history]
+ :system-relationships {:users :user}}

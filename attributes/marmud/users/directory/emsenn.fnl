@@ -2,4 +2,6 @@
  :history [{:event "Created as user account" :time 1668743337}]
  :name "emsenn"
  :user-id "emsenn"
- :user-passcode "dd"}
+ :user-passcode "dd"
+ :system-relationships {:users [:user]}}
+

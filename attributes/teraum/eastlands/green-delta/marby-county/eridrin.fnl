@@ -1,4 +1,4 @@
-;;;; road near Freke's grave, South Arathel (Teraum) model
+;;;; Eridrin, Marby County (Teraum) attributes
 
 (local green-delta :teraum/eastlands/green-delta/)
 
