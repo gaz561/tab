@@ -8,7 +8,12 @@
       (when area.lookables
         (each [num lookable-model (pairs area.lookables)]
           (let [lookable (dimension:make-thing :vr/lookable lookable-model)]
-            (tset area.lookables num lookable))))))
+            (tset area.lookables num lookable))))
+      (when area.contents
+        (each [num object-model (pairs area.contents)]
+          (tset area.contents num nil)
+          (let [object (dimension:make-thing :vr/object object-model)]
+            (object:move area))))))
   (set mapper.loaded? true))
 
 (fn find-area [mapper id]

@@ -3,4 +3,4 @@
 {:name "galley"
  :base :okaga/area
  :description "This the galley aboard the Okaga."
- :exits {:hallway :okaga/hallway}}
+ :exits {:passageways :okaga/passageways}}
