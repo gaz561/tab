@@ -57,6 +57,7 @@ Here's a play-by-play that *should* work if you follow it exactly. If it doesn't
       - (replace the email address)
   - Copy the text in the file at `~/.ssh/id_ed25519.pub` into the form at https://github.com/settings/ssh/new
 - We should be good to grab the TAB code from github now - assuming you've been added to the repository:
+  - `cd ~`
   - `git clone git@github.com:gaz561/tab.git`
   - Move into that folder: `cd tab`
   - Set up our dependencies
