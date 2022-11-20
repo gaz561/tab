@@ -1,2 +1,2 @@
 {:name "Anonymouse"
- :base [:users/mud/client :vr/mud/client]}
+ :base [:vr/mud/client :users/mud/client]}

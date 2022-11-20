@@ -14,6 +14,14 @@
               :description "The top of the table is a glazed glass, lit from beneath so that papers set on it are easier to read."
               :grammar {:nouns [:top]
                         :adjectives [:table :glass :glazed :lit]}}
+             {:name "glass"
+              :description "The glass that makes up the tabletop is glazed, and lit from below."
+              :grammar {:nouns [:glass]
+                        :adjectives [:glazed :lit]}}
+             {:name "floor"
+              :description "The floor here is some sort of blue-gray carpet."
+              :grammar {:nouns [:floor]
+                        :adjectives [:blue-gray :blue :gray]}}
              {:name "wall interface"
               :description "All along the walls are a variety of dials, in different sizes, along with levers, buttons, switches, and so on."
               :grammar {:nouns [:dial :dials :interface :interfaces :levers :lever :buttons :button :switches :switch]

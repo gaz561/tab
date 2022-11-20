@@ -300,17 +300,20 @@
 (fn tab.make-thing [attr-path ?addn ?dimension]
   {:fnl/docstring "Make the model found at MODEL-NAME, adding in the ?ADDITIONAL attributes if provided, and setting the made thing's ?DIMENSION if provided."
    :fnl/arglist [model-name ?additional ?dimension]}
-  (let [made-thing {}
+  (let [made-thing {:additive-attributes [:additive-attributes :behaviors]}
         base-collection []
         model (if (= (type attr-path) :string)
                   (tab.clone-attributes-from-file attr-path)
                   attr-path)]
     (tab.collect-bases model base-collection)
     (when ?addn (tab.collect-bases ?addn base-collection))
-    (let [clean-base-collection (tab.reverse-list
-                                 (tab.drop-dupes base-collection))]
+    (let [clean-base-collection (tab.drop-dupes base-collection)]
+      (tab.log :debug "Making a thing with this base collection: "
+               (tab.quibble-strings clean-base-collection))
       (each [_ base-model-name (pairs clean-base-collection)]
-        (tab.merge-models made-thing (tab.load-attributes-file base-model-name))))
+        (tab.log :debug "Merging this model into the thing: " base-model-name)
+        (tab.merge-models made-thing (tab.load-attributes-file base-model-name)))
+      (tab.log :debug "Added base collection to thing."))
     (set model.base nil)
     (tab.merge-models made-thing model)
     (when ?addn
