@@ -30,3 +30,80 @@ nil
 ["apple"]
 ```
 
+## Map of Models
+
+```mermaid
+graph TD
+    subgraph TAB
+        thing
+        subgraph Misc
+            misc/history
+        end
+        subgraph MUD
+            mud/client
+            mud/server
+            subgraph Talker
+                mud/talker/client
+                mud/talker/system
+            end
+        end
+        subgraph Organization
+            org/profile
+        end
+        subgraph Systems
+            sys/basic
+            sys/dimension
+            sys/help
+            sys/timer
+        end
+        subgraph Users
+            users/handler
+            subgraph MUD
+                users/mud/client
+            end
+        end
+        subgraph Virtual Reality
+            vr/animation
+            vr/area
+            vr/container
+            vr/lookable
+            vr/mapper
+            vr/massive
+            vr/mobile
+            vr/noisemaker
+            vr/notable
+            vr/object
+            vr/person
+            vr/trivial
+            subgraph MUD
+                vr/mud/client
+            end
+        end
+    end
+    thing
+    thing --> misc/history
+    thing --> org/profile
+    thing --> sys/basic
+    thing --> vr/lookable
+    thing --> vr/massive
+    thing --> vr/notable
+    thing --> vr/object
+    thing --> vr/trivial
+    mud/client --> mud/talker/client
+    mud/client --> users/mud/client
+    mud/client --> vr/mud/client
+    sys/basic --> mud/server
+    sys/basic --> mud/talker/system
+    sys/basic --> sys/dimension
+    sys/basic --> sys/help
+    sys/basic --> sys/timer
+    sys/basic --> users/handler
+    sys/basic --> vr/animation
+    sys/basic --> vr/mapper
+    sys/basic --> vr/noisemaker
+    vr/container --> vr/area
+    vr/mobile --> vr/person
+    vr/object --> mud/client
+    vr/object --> vr/mobile
+    vr/object --> vr/mud/client
+```
