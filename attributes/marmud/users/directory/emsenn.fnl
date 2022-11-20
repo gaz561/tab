@@ -3,5 +3,6 @@
  :name "emsenn"
  :user-id "emsenn"
  :user-passcode "dd"
- :system-relationships {:users [:user]}}
+ :system-relationships {:users [:admin]
+                        :talker [:client]}}
 

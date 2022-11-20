@@ -1,3 +1,5 @@
+;;;; VR MUDSocket client attributes
+
 {:name "VR MUDSocket Client"
  :base [:mud/client :vr/object]
  :behaviors [:vr/mud/client]

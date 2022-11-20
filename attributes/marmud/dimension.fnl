@@ -8,6 +8,6 @@
            :mud-server :marmud/mud/server
            :noisemaker :vr/noisemaker
            :users :marmud/users/handler
-           :talker :mud/talker
+           :talker :mud/talker/system
            :timer :sys/timer}
- :grammar {:article :the}}
+ :grammar {:article ""}}

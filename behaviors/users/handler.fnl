@@ -32,7 +32,10 @@
                            :name id
                            :history [{:time (os.time)
                                       :event "Created as user account"}]
-                           :user-passcode (tab.make-id)}]
+                           :user-passcode (tab.make-id)
+                           :system-relationships
+                           (or handler.default-system-relationships
+                               {})}]
              (tab.save-file new-user (.. :attributes/
                                          handler.users-folder :/ id))
              (tab.log :debug "Saved new user " id " with passcode "
@@ -44,6 +47,10 @@
   (tab.log :debug "Setting up " (user:fname) "as a user")
   (table.insert user.command-list :finger))
 
+(fn setup-admin [handler client]
+  (handler:setup-user client)
+  (table.insert client.command-list :make-user))
+
 {:load ld
  : find-user : make-user
- : setup-user}
+ : setup-user : setup-admin}

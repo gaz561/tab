@@ -296,6 +296,13 @@
         (do (tset base k v))))
   base)
 
+(fn tab.underline [str]
+  (let [A (tab.make-string-appender)]
+    (for [i (length str) 1 -1]
+      (A :-))
+    (.. str "\n" (A))))
+    
+
 
 (fn tab.make-thing [attr-path ?addn ?dimension]
   {:fnl/docstring "Make the model found at MODEL-NAME, adding in the ?ADDITIONAL attributes if provided, and setting the made thing's ?DIMENSION if provided."
