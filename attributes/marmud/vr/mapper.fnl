@@ -39,7 +39,7 @@
              :teraum/eastlands/green-delta/game/ack/bank-hill
              :teraum/eastlands/green-delta/game/ack/carper-falls
              :teraum/eastlands/green-delta/game/ack/copper-ward
-             :teraum/eastlands/green-delta/game/ack/east-gate
+             :teraum/eastlands/green-delta/game/ack/eastgate
              :teraum/eastlands/green-delta/game/ack/garys-gate
              :teraum/eastlands/green-delta/game/ack/gasper
              :teraum/eastlands/green-delta/game/ack/north-ward
@@ -98,5 +98,6 @@
              :teraum/eastlands/green-delta/pled-county/daughts-cottage
              :teraum/eastlands/green-delta/pled-county/west-arathel-pled-road
              :teraum/eastlands/green-delta/sherwyn-county/chauntean-monastery
+             :teraum/eastlands/green-delta/sherwyn-county/kingsroad
              ]
- :start-area :okaga/bridge}
+ :start-area :okaga/library}

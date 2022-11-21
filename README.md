@@ -58,6 +58,7 @@ graph TD
         end
         subgraph Users
             users/handler
+			users/user
             subgraph MUD
                 users/mud/client
             end
@@ -89,6 +90,7 @@ graph TD
     thing --> vr/notable
     thing --> vr/object
     thing --> vr/trivial
+	misc/history --> users/user
     mud/client --> mud/talker/client
     mud/client --> users/mud/client
     mud/client --> vr/mud/client

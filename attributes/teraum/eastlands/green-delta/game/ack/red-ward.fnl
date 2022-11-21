@@ -15,4 +15,9 @@
              {:name "buildings"
               :description "The buildings here form a maze of alleys, which once served as a great defense against invaders. These days, it simply serves to confuse tourists and inhibit trade. There are a few towers which rise higher than any other building."
               :grammar {:nouns [:buildings :building]
-                        :adjectives [:clay :red]}}]}
+                        :adjectives [:clay :red]}}]
+ :contents [{:name "clerk"
+             :base :teraum/npc
+             :description "This is a clerk from the Red Union; apparent by the red robe they're wearing, and the look of discontented alienation of their face."
+             :animations [:roam]
+             :region-lock :teraum/eastlands/green-delta/game/ack}]}

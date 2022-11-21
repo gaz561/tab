@@ -22,8 +22,11 @@
       (tab.log :debug (.. (thing:fname) " has " (length thing.animations)
                           " animations"))
       (each [_ animation (pairs thing.animations)]
-        (thing.dimension.timer:schedule
-         (partial (. thing animation) thing))))))
+        (if (. thing animation)
+            (thing.dimension.timer:schedule
+             (partial (. thing animation) thing))
+            (tab.log :warning "Failed to trigger " animation
+                     " for " (thing:fname) "; doesn't have that method."))))))
 
 
 {: start}
