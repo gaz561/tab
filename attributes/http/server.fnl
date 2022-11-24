@@ -2,5 +2,5 @@
 
 {:name "Web server"
  :base :sys/basic
- :behaviors [:web/server]
+ :behaviors [:http/server]
  :web-port "8042"}
