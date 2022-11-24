@@ -2,11 +2,13 @@
 
 (local tab (require :tab))
 
-(fn make-html [server content]
+(fn make-html [server content ?title]
   (string.format
    (.. "<!doctype html>"
        "<html>"
-       "<title>MarMUD Web Document</title>"
+       "<title>" (or ?title
+                     "MarMUD Web Document")
+       "</title>"
        "<body>%s</body></html>")
    content))
 
