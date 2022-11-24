@@ -12,11 +12,13 @@
     (when (and item.tags (> (length item.tags) 0))
       (A (.. "Tags: " (tab.quibble-strings item.tags true))))
     (when (and item.sources (> (length (tab.collect-keys item.sources)) 0))
-        (let [t []]
-          (each [anchor link (pairs item.sources)]
-            (table.insert t (.. "<a href=\"" link
-                                "\">" anchor "</a>")))
-          (A (.. "Sources: " (tab.quibble-strings t true)))))
+      (let [q (tab.collect-keys item.sources)
+            t []]
+        (table.sort q)
+        (each [_ anchor (pairs q)]
+          (table.insert t (.. "<a href=\"" (. item.sources anchor)
+                              "\">" anchor "</a>")))
+          (A (.. "Sources: " (tab.quibble-strings t)))))
     (A)))
 
 (fn render-library [library]
