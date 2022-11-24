@@ -3,7 +3,8 @@
  :description "This is the Widdershins Road, which runs from the coast north of Ack to the ssouthern coast, not-quite circling the city."
  :exits {:north :teraum/eastlands/green-delta/game/ack/poplar-gate
          :northeast :teraum/eastlands/green-delta/game/ack/piketown-gate
-         :northwest :teraum/eastlands/green-delta/game/ack/garys-gate}
+         :northwest :teraum/eastlands/green-delta/game/ack/garys-gate
+         :south :teraum/eastlands/green-delta/marby-county/north-ack-widewoods-road-1}
  :contents [{:name "Bill Hags"
              :base [:teraum/npc :teraum/eastlands/green-delta/game/gamer]
              :description "Bill Hags is one of many migrant human workers. He travels the world, doing whatever labour is available."

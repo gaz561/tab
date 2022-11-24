@@ -1,8 +1,6 @@
 {:name "street in Bellybrush"
  :base :teraum/eastlands/green-delta/game/bellybrush/area
  :description "This is a street in Bellybrush. The surface is covered in a nearly white sand, with gutters of crushed gray stone and sidewalks made of red brick pavers."
- :trivia ["The town of Bellybrush was settled in 701bB."
-          "The town of Bellybrush was added to the Teraum MUD in rwOctober, 2020, and was the first region to receive much detail."]
  :lookables [{:name "street"
               :description "The street here is surfaced with white sand."
               :grammar {:nouns [:street :surface]

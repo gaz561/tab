@@ -3,7 +3,11 @@
 (local green-delta :teraum/eastlands/green-delta/)
 
 {:name "Eridin"
- :base :teraum/eastlands/green-delta/game/south-arathel/rural-road
+ :base :teraum/eastlands/green-delta/area
+ :mud-commands [:forage]
+ :forage-chance {"blue pebble" 1}
+ :forage-items [{:name "blue pebble"
+                 :base :vr/object}]
  :description "This is the town of Eridrin. It consists of about a dozen wattle cottages erected near the gravel banks of the Marlbreen River, grey with silt. A well-worn road reveals sandy loam under thin topsoil. The road leads northwest to the large town of Bellybrush, and southeast through Marby County."
  :lookables [{:name "wattle cottages"
               :description "There are about a dozen wattle cottages arranged near the road."

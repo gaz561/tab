@@ -22,8 +22,9 @@ Here's a play-by-play that *should* work if you follow it exactly. If it doesn't
   - Again, sorry we can't give more specific instructions here.
   - Start the computer back up and log in and such
 - Install Windows Subsystem for Linux
-  - Open powershell as admin
+  - Open powershell **as admin**
   - `wsl --install`
+  - reboot your computer
 - Setup your new Linux install
   - Start the "Ubuntu" app now installed on your computer
   - Configure it with a username and password
@@ -55,6 +56,7 @@ Here's a play-by-play that *should* work if you follow it exactly. If it doesn't
   - run this command:
 	- `ssh-keygen -t ed25519 -C "your_email@example.com"`
       - (replace the email address)
+	- when it asks what file to save it into, press ENTER for the defaults
   - Copy the text in the file at `~/.ssh/id_ed25519.pub` into the form at https://github.com/settings/ssh/new
 - We should be good to grab the TAB code from github now - assuming you've been added to the repository:
   - `cd ~`
