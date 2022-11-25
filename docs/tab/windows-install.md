@@ -52,6 +52,8 @@ Here's a play-by-play that *should* work if you follow it exactly. If it doesn't
 	- `./configure --with-lua-include=/usr/local/include`
 	- `make`
 	- `sudo make install`
+  - Next, install LuaSocket:
+    - `sudo luarocks install luasocket`
 - next we gotta set up our ssh keys and import them into github
   - run this command:
 	- `ssh-keygen -t ed25519 -C "your_email@example.com"`
