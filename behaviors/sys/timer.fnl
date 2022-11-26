@@ -15,6 +15,7 @@
 
 (fn tick [timer]
   (set timer.count (+ timer.count 1))
+  (tab.log :spam (.. "Starting tick #" timer.count))
   (let [current-events (. timer.events 1)]
     (tset timer.events 1 nil)
     (let [ old-schedule (tab.clone-table timer.events)]

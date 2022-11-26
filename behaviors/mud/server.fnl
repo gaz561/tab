@@ -52,7 +52,10 @@
                                     "; load it first"))))
 
 (fn mud-server-behaviors.tick [server ?repeat]
+  (tab.log :spam "Beginning mud server tick.")
   (let [new-conn (server.socket:accept)]
+    (tab.log :debug "beginning connection acceptance")
+    (tab.log :debug (tab.view new-conn))
     (when new-conn
       (server:accept-connection new-conn)))
   (each [_ client (pairs server.clients)]
