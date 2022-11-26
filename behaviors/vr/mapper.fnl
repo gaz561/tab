@@ -3,7 +3,7 @@
 
 (fn ld [mapper dimension]
   (each [_ model (pairs mapper.area-list)]
-    (tab.log :debug "Making area " model)
+    (tab.log :spam "Making area " model)
     (tset mapper.areas model (dimension:make-thing model))
     (let [area (. mapper.areas model)]
       (when area.lookables

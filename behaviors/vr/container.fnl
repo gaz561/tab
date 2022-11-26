@@ -10,7 +10,7 @@
 
 (fn receive-object [container object]
   "Remove OBJECT from its current location and add it to CONTAINER's contents."
-  (tab.log :debug (.. (container:fname) " receiving " (object:fname)
+  (tab.log :spam (.. (container:fname) " receiving " (object:fname)
                       " into " container.grammar.pronouns.determiner
                       " contents"))
   (let [obloc object.location]

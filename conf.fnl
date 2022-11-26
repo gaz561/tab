@@ -4,5 +4,5 @@
 
 {:behaviors-folder :behaviors
  :models-folder :models
- :log-level :spam ; spam debug info warning error critical
+ :log-level :debug ; spam debug info warning error critical
  }

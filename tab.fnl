@@ -27,12 +27,7 @@
                message)))
   (when (>= (. log-levels conf.log-level)
             (. log-levels level))
-    (let [mtab (table.pack ...) ; message table
-          A (tab.make-string-appender)]
-      (set mtab.n nil)
-      (each [_ str (pairs mtab)]
-        (A str))
-      (print-message (A)))))
+    (print-message (tab.concat ...))))
 
 ;;; Strings
 
@@ -315,12 +310,12 @@
     (tab.collect-bases model base-collection)
     (when ?addn (tab.collect-bases ?addn base-collection))
     (let [clean-base-collection (tab.drop-dupes base-collection)]
-      (tab.log :debug "Making a thing with this base collection: "
+      (tab.log :spam "Making a thing with this base collection: "
                (tab.quibble-strings clean-base-collection))
       (each [_ base-model-name (pairs clean-base-collection)]
-        (tab.log :debug "Merging this model into the thing: " base-model-name)
+        (tab.log :spam "Merging this model into the thing: " base-model-name)
         (tab.merge-models made-thing (tab.load-attributes-file base-model-name)))
-      (tab.log :debug "Added base collection to thing."))
+      (tab.log :spam "Added base collection to thing."))
     (set model.base nil)
     (tab.merge-models made-thing model)
     (when ?addn

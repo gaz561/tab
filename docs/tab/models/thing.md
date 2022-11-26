@@ -14,3 +14,7 @@ Every *thing* also come with two lists:
 Every *thing* also comes with a table of their *grammar*. Here's a rough specification of that table.
 
 - ***article*** :: This one isn't actually included by default, but the behaviors of a thing that rely on it are capable of making some assumptions. Articles are typically "a", "an", or "the"; if you don't want the thing to have an article, like if it's a proper name, set it to a blank string, "". *(Don't set it to `nil`!)*
+- ***pronouns*** :: This is a table that contains the thing's third-person pronouns, as well as two tables for first- and second-person pronouns.
+  - ***subject***, ***object***, ***determiner***, ***possessive***, and ***reflexive*** are the recognized pronoun types.
+  - So if you wanted to refer to a thing's contents, you'd check `thing.grammar.pronouns.possessive` - if you wanted to use a thing's pronouns at itself, you'd do `thing.grammar.pronouns.first.possessive`:
+    - `(.. (thing:fname) " takes " thing.grammar.pronouns.possessive " pack off and hands it to " you.grammar.second.object)` might turn into `A peasant takes her pack off and hands it to you`
