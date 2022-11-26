@@ -1,8 +1,7 @@
-;;;; thing model
+;;;; thing attributes
 
 {:name :thing
  :behaviors [:thing]
- :definition "The base of defining an individual thing, composed of attributes and behaviors."
  :additive-attributes [:additive-attributes :behaviors]
  :grammar {:pronouns {:subject :it
                       :object :it
