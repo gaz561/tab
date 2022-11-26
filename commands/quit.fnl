@@ -3,6 +3,6 @@
 (fn quit [client input]
   (client:message
    (.. "Quitting now."))
-  (client.engine.timer:schedule
+  (client.dimension.timer:schedule
    (partial client.server.disconnect-client
             client.server client)))
