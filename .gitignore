@@ -1,0 +1,11 @@
+*~
+/files
+/models/per
+/luasocket
+/lua-5.*
+/gos-bin
+/mime.a
+/socket.a
+/usr
+/tab-bin
+*.pdf
