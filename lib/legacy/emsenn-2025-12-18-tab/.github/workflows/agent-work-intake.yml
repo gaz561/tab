@@ -1,0 +1,17 @@
+name: Agent work
+on:
+  push:
+    branches: ['**']
+  pull_request_target:
+    types: [opened, reopened, synchronize, closed]
+permissions:
+  contents: read
+  issues: write
+  pull-requests: write
+concurrency:
+  group: agent-work-${{ github.event.pull_request.head.ref || github.ref_name }}
+  cancel-in-progress: false
+jobs:
+  receive:
+    if: github.event_name != 'push' || (github.ref_name != github.event.repository.default_branch && !github.event.deleted)
+    uses: red-cup-engineering/continuous-delivery-services-section/.github/workflows/agent-work.yml@9941b91847d4c5e7947fb044faeb4e77476dc17d
